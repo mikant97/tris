@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     String gioca2;
     int pareggio = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
         gioca2 = dati.getString("Gio2");
         caricaButton();
         Button gioca = (Button) findViewById(R.id.ButtonGioca);
-        if (giocatore) { gioca.setText("Tocca a: " + gioca1);} else { gioca.setText("Tocca a" + gioca2); }
+        if (giocatore) { gioca.setText("Tocca a: " + gioca1);
+                         gioca.invalidate(); gioca.requestLayout();} else { gioca.setText("Tocca a" + gioca2); }
 
         for (int i = 0, k = 0; i < 3; i++)
             for (int j = 0; j < 3; j++) {
@@ -78,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
                                 } else {
                                     giocatore = true;
                                 }
+                                if (giocatore) { gioca.setText("Tocca a: " + gioca1);
+                                    } else { gioca.setText("Tocca a" + gioca2); }
                             }
                         }
 
@@ -182,5 +186,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 
 }
