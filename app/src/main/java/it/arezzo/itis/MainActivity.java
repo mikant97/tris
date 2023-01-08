@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     Button[] vet = new Button[9];
     boolean qualeChr = true;  // true = X false 0
     boolean giocatore = true; // true Human false WOPR
+    boolean giocatore_iniziale = true;
     int r = 0;
     int c = 0;
     String gioca1;
@@ -32,13 +33,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         giocatore = Presentazione.inizia;
+        giocatore_iniziale = Presentazione.inizia;
         Bundle dati = getIntent().getExtras();
         gioca1 = dati.getString("Gio1");
         gioca2 = dati.getString("Gio2");
+
         caricaButton();
         Button gioca = (Button) findViewById(R.id.ButtonGioca);
-        if (giocatore) { gioca.setText("Tocca a: " + gioca1);
-                         gioca.invalidate(); gioca.requestLayout();} else { gioca.setText("Tocca a" + gioca2); }
+        if (giocatore) { gioca.setText("Tocca a : " + gioca1 + "(X)");
+                         qualeChr = true; } else { gioca.setText("Tocca a : " + gioca2 + "(O)"); qualeChr = false;}
 
         for (int i = 0, k = 0; i < 3; i++)
             for (int j = 0; j < 3; j++) {
@@ -73,15 +76,15 @@ public class MainActivity extends AppCompatActivity {
                                 gioca.setText("Ha vinto : " + gioca2 + " !!!!");
                             }
                         } else {
-                            if (pareggio == 9) {  gioca.setText("Pareggio ! Tris di solito è così");
+                            if (pareggio == 0) {  gioca.setText("Pareggio ! Tris di solito è così");
                             } else {
                                 if (giocatore) {
                                     giocatore = false;
                                 } else {
                                     giocatore = true;
                                 }
-                                if (giocatore) { gioca.setText("Tocca a: " + gioca1);
-                                    } else { gioca.setText("Tocca a" + gioca2); }
+                                if (giocatore) { gioca.setText("Tocca a : " + gioca1 + "(X)");
+                                    } else { gioca.setText("Tocca a : " + gioca2 + "(O)"); }
                             }
                         }
 
@@ -96,6 +99,21 @@ public class MainActivity extends AppCompatActivity {
     public void principale(View view) {
         Intent princip = new Intent(MainActivity.this, Presentazione.class);
         startActivity(princip);
+    }
+
+    public void reset(View view) {
+        // Reset Button
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                sca[i][j].setText("");
+                mat[i][j] = 0;
+            }
+        }
+        giocatore_iniziale = !giocatore_iniziale;
+        giocatore = giocatore_iniziale;
+        Button gioca = (Button) findViewById(R.id.ButtonGioca);
+        if (giocatore) { gioca.setText("Tocca a : " + gioca1 + "(X)");
+            qualeChr = true; } else { gioca.setText("Tocca a : " + gioca2 + "(O)"); qualeChr = false;}
     }
 
     public void caricaButton() {
@@ -171,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
         if (vittoria == 3) {
             vitt = true;
         } else {
+            pareggio = 0;
             for (int i = 0; (i < mat.length) && !vitt; i++) {
                 for (int j = 0; j < mat[0].length; j++) {
 

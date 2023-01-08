@@ -12,6 +12,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="352dp"
         android:layout_marginEnd="36dp"
+        android:onClick="reset"
         android:text="Reset - New Game !!!!"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

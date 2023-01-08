@@ -52,10 +52,10 @@ public class Presentazione extends AppCompatActivity {
                 {
                     rand = (int)(Math.random() * range) + min;
 
-                    if (rand == 1) { ini1.setText("Inizia: " + gio1.getText().toString()); }
+                    if (rand == 1) { ini1.setText("Inizia: " + gio1.getText().toString() + " - chr: X"); }
 
                     else {
-                        ini1.setText("Inizia: " + gio2.getText().toString());
+                        ini1.setText("Inizia: " + gio2.getText().toString() + " - chr: O");
                     }
                 }
                 if (rand==1) { inizia = true;} else {inizia = false;}
