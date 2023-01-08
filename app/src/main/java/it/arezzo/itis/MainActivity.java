@@ -1,13 +1,11 @@
 package it.arezzo.itis;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 sca[i][j] = vet[k];
                 String app = "Bottone_" + i + "_" + j;
                 sca[i][j].setTag(app);
+                sca[i][j].setEnabled(true);
                 sca[i][j].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -76,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
                                 gioca.setText("Ha vinto : " + gioca2 + " !!!!");
                             }
                         } else {
-                            if (pareggio == 0) {  gioca.setText("Pareggio ! Tris di solito è così");
+                            if (pareggio == 0) {  disattivaPulsanti();
+                                gioca.setText("Pareggio ! Tris di solito è così");
                             } else {
                                 if (giocatore) {
                                     giocatore = false;
@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 sca[i][j].setText("");
+                sca[i][j].setEnabled(true);
                 mat[i][j] = 0;
             }
         }
@@ -199,11 +200,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (vitt) {
+            disattivaPulsanti();
             return true;
         } else {
             return false;
         }
 
+    }
+
+    public void disattivaPulsanti()
+    {
+        for (int i = 0; (i < mat.length); i++) {
+            for (int j = 0; j < mat[0].length; j++) {
+                sca[i][j].setEnabled(false);
+            }
+        }
     }
 
 
